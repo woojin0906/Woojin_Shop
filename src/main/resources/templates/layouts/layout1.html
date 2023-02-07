@@ -13,12 +13,16 @@
     <!-- css 적용 -->
     <link th:href="@{/css/layout1.css}" rel="stylesheet">
 
+    <!-- 스크립트를 넣을 수 있는 block 생성 스크립트를 사용할 때 이 블럭 사이에 넣으면 됨 -->
     <th:block layout:fragment="script"></th:block>
+    <!-- css를 넣을 수 있는 block 생성 -->
     <th:block layout:fragment="css"></th:block>
+
 </head>
 <body>
     <div th:replace="fragments/header::header"></div>  <!-- 이 부분의 헤더를 fragments의 header로 대체한다는 뜻 -->
 
+    <!-- 변경될 영역. 앞으로 작업을 하면 이 부분만 변경된다. -->
     <div layout:fragment="content" class="content">
 
     </div>

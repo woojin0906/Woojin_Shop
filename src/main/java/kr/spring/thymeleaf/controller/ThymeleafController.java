@@ -28,6 +28,7 @@ public class ThymeleafController {
         return "thymeleaf/ex1";
     }
 
+    //	값 전달 연습
     @GetMapping("/ex2")
     public String ex2(Model model) {
 
@@ -42,6 +43,7 @@ public class ThymeleafController {
         return "thymeleaf/ex2";
     }
 
+    //	3, 4를 한 번에 담을 수 있다.
     @GetMapping({"/ex3", "/ex4"})
     public void ex3(Model model) {
 
@@ -56,13 +58,14 @@ public class ThymeleafController {
 
             list.add(itemDto);
         }
-
+        // 리스트로 전달
         model.addAttribute("list", list);
 
     }
 
     @GetMapping("/ex5")
     public String ex5(@RequestParam("param1") String p1, String param2, Model model) {
+        // 데이터를 잘 넘겼는지 확인하기 위함
         log.info("===========>" + p1 + ", " + param2);
 
         model.addAttribute("param1", p1);

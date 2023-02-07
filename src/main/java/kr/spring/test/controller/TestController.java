@@ -6,11 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+//일반적으로 @Controller를 적는다.
+//아래에 있는 정보를 그대로 client에게 return
 @RestController
 public class TestController {
 
+    //	옛날방식
     //@RequestMapping(value = "/", method = RequestMethod.GET)
-    @GetMapping(value = "/")
+    @GetMapping(value = "/hello")
     public String hello() {
         return "Hello World";
     }
