@@ -1,11 +1,9 @@
 package kr.spring.config;
-
-import org.springframework.beans.factory.annotation.Configurable;
+// 로그인 관련
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -31,6 +29,15 @@ public class SecurityConfig {
                 .logout()  // 로그아웃과 관련된 정보
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")) // 로그아웃을 누를 때 처리할 내용
                 .logoutSuccessUrl("/");
+
+        http.authorizeRequests()  // 인증 여부 확인
+                .requestMatchers("/css/**", "/js/**").permitAll()  // 모든 사람에게 css 적용
+                .requestMatchers("/", "/member/**", "/item/**", "/images/**").permitAll()  // 아무나 페이지에 들어올 수 있고, member, item 밑에 있는 애들은 모두 permit 허용
+                .requestMatchers("/admin/**").hasRole("ADMIN") // admin인 애들만 admin에 접속 가능
+                .anyRequest().authenticated(); // 인증 받기
+
+        http.exceptionHandling()  // 권한이 없는 경우
+                .authenticationEntryPoint(new CustomEntryPoint());
 
         return http.build();
     }

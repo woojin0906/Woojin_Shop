@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.web.servlet.MockMvc;
 import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -22,7 +23,6 @@ import java.util.List;
 
 @SpringBootTest
 class ItemRepositoryTest {
-
 
     @Autowired
     EntityManager em;
