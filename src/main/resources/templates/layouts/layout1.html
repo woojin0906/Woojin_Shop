@@ -20,13 +20,13 @@
 
 </head>
 <body>
-    <div th:replace="fragments/header::header"></div>  <!-- 이 부분의 헤더를 fragments의 header로 대체한다는 뜻 -->
+    <div th:replace="~{fragments/header::header}"></div>  <!-- 이 부분의 헤더를 fragments의 header로 대체한다는 뜻 -->
 
     <!-- 변경될 영역. 앞으로 작업을 하면 이 부분만 변경된다. -->
     <div layout:fragment="content" class="content">
 
     </div>
 
-    <div th:replace="fragments/footer::footer"></div>  <!-- 이 부분의 헤더를 fragments의 header로 대체한다는 뜻 -->
+    <div th:replace="~{fragments/footer::footer}"></div>  <!-- 이 부분의 헤더를 fragments의 header로 대체한다는 뜻 -->
 </body>
 </html>

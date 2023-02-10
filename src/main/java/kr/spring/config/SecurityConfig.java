@@ -31,10 +31,11 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/");
 
         http.authorizeRequests()  // 인증 여부 확인
-                .requestMatchers("/css/**", "/js/**").permitAll()  // 모든 사람에게 css 적용
-                .requestMatchers("/", "/member/**", "/item/**", "/images/**").permitAll()  // 아무나 페이지에 들어올 수 있고, member, item 밑에 있는 애들은 모두 permit 허용
-                .requestMatchers("/admin/**").hasRole("ADMIN") // admin인 애들만 admin에 접속 가능
-                .anyRequest().authenticated(); // 인증 받기
+                .requestMatchers(new AntPathRequestMatcher("/css/**", "/js/**")).permitAll()  // 모든 사람에게 css 적용
+                .requestMatchers(new AntPathRequestMatcher("/", "/member/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/item/**", "/images/**")).permitAll()  // 아무나 페이지에 들어올 수 있고, member, item 밑에 있는 애들은 모두 permit 허용
+                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN") // admin인 애들만 admin에 접속 가능
+                ; // 인증 받기
 
         http.exceptionHandling()  // 권한이 없는 경우
                 .authenticationEntryPoint(new CustomEntryPoint());

@@ -14,22 +14,22 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <!-- 상품등록 -->
-                    <li class="nav-item"  sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                         <a class="nav-link active" aria-current="page" href="/admin/item/new" >상품등록</a></li>
                     <!-- 상품관리 -->
-                    <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                         <a class="nav-link active" aria-current="page" href="/admin/items">상품관리</a></li>
                     <!-- 장바구니 -->
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <li class="nav-item" sec:authorize="hasRole('USER')">
                         <a class="nav-link active" aria-current="page" href="/cart">장바구니</a></li>
                     <!-- 구매이력 -->
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <li class="nav-item" sec:authorize="hasRole('USER')">
                         <a class="nav-link active" aria-current="page" href="/orders">구매이력</a></li>
                     <!-- 로그인 -->
-                    <li class="nav-item" sec:authorize="isAnonymous()">
+                    <li class="nav-item" sec:authorize="hasRole('USER')">
                         <a class="nav-link active" aria-current="page" href="/member/login">로그인</a></li>
                     <!-- 로그아웃 -->
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <li class="nav-item" sec:authorize="hasRole('USER')">
                         <a class="nav-link active" aria-current="page" href="/member/logout">로그아웃</a></li>
                 </ul>
                 <form class="d-flex" role="search">
