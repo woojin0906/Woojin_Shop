@@ -2,6 +2,7 @@ package kr.spring.order.entity;
 
 import jakarta.persistence.*;
 import kr.spring.item.entity.Item;
+import kr.spring.utils.entity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @NoArgsConstructor
-public class OrderItem {
+public class OrderItem extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +34,9 @@ public class OrderItem {
 
     private int count;
 
-    private LocalDateTime regTime;
-
-    private LocalDateTime updateTime;
+     // extends BaseEntity를 추가했으므로 등록시간과 수정시간 필드를 삭제
+//    private LocalDateTime regTime;
+//
+//    private LocalDateTime updateTime;
 
 }

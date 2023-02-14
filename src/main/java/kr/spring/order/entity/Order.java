@@ -3,6 +3,7 @@ package kr.spring.order.entity;
 import jakarta.persistence.*;
 import kr.spring.member.entity.Member;
 import kr.spring.order.constant.OrderStatus;
+import kr.spring.utils.entity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +20,7 @@ import java.util.List;
 @ToString
 @Table(name = "orders") // 이미 Order라는 이름이 있기 때문에 테이블명을 바꿈
 @NoArgsConstructor
-public class Order {
+public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,8 +39,9 @@ public class Order {
 
     private OrderStatus orderStatus;
 
-    private LocalDateTime regTime;
-
-    private LocalDateTime updateTime;
+     // extends BaseEntity를 추가했으므로 등록시간과 수정시간 필드를 삭제
+//    private LocalDateTime regTime;
+//
+//    private LocalDateTime updateTime;
 
 }

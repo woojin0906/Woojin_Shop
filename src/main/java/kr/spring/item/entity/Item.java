@@ -2,6 +2,7 @@ package kr.spring.item.entity;
 // 아이템 엔티티 생성
 import jakarta.persistence.*;
 import kr.spring.item.constant.ItemSellStatus;
+import kr.spring.utils.entity.BaseEntity;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @ToString // 문자열 자동 생성
 @NoArgsConstructor // 빈생성자 생성
 @AllArgsConstructor //모든 entity에 대해서 생성자를 만든다.
-public class Item {
+public class Item extends BaseEntity {
 
     @Id //기본키 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) //mysql의 경우 identity를 사용.
@@ -40,9 +41,10 @@ public class Item {
     @Column(nullable = false)
     private String itemDetail;           // 상품 상세 설명
 
-    private LocalDateTime regTime;       // 등록 시간
-
-    private LocalDateTime updateTime;    // 수정 시간
+     // extends BaseEntity를 추가했으므로 등록시간과 수정시간 필드를 삭제
+//    private LocalDateTime regTime;       // 등록 시간
+//
+//    private LocalDateTime updateTime;    // 수정 시간
 
 
 }

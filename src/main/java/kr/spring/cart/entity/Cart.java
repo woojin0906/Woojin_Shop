@@ -2,6 +2,7 @@ package kr.spring.cart.entity;
 
 import jakarta.persistence.*;
 import kr.spring.member.entity.Member;
+import kr.spring.utils.entity.BaseEntity;
 import lombok.*;
 
 
@@ -10,7 +11,7 @@ import lombok.*;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Cart {
+public class Cart extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
