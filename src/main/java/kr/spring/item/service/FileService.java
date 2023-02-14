@@ -10,8 +10,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Service
-// 파일을 만드는 일을 한다.
-// 파일을 지우는 일을 한다.
+// 파일을 만들고 지우는 일을 함
 @Slf4j
 public class FileService {
 

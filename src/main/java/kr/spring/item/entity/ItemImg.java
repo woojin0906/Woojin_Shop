@@ -5,7 +5,6 @@ import kr.spring.utils.entity.BaseEntity;
 import lombok.*;
 
 @Entity
-@Table(name = "my_item") // 테이블 명칭 지정
 @Getter
 @Setter // 필수 아님
 @ToString // 문자열 자동 생성
