@@ -33,15 +33,18 @@ dependencies {
     // thymeleaf 추가
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.2.0'
     // security 추가
-    implementation 'org.springframework.boot:spring-boot-starter-security:3.0.1'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     // springsecurity5 추가
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.1.1.RELEASE'
 
     // validation 추가
     implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.1'
 
     // security-test 추가
     implementation 'org.springframework.security:spring-security-test'
+
+    // modelmappter 추가 -> dto <-> entity
+    implementation 'org.modelmapper:modelmapper:3.1.1'
 
     runtimeOnly 'com.mysql:mysql-connector-j'
     compileOnly 'org.projectlombok:lombok'

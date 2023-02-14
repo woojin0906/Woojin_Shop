@@ -7,9 +7,9 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Configuration
-@EnableJpaAuditing // 감시 기능
+@EnableJpaAuditing //변경 발생 시 자동으로 감지할 수 있게 함
 
-public class AuditaConfig {
+public class AuditConfig {
 
     @Bean
     public AuditorAware<String> auditorProvider() {

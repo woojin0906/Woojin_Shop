@@ -2,6 +2,7 @@ package kr.spring.item.dto;
 
 import jakarta.persistence.*;
 import kr.spring.item.constant.ItemSellStatus;
+import kr.spring.utils.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter // 반드시 붙여야 함
 @Setter // 필수는 아님
-public class ItemDto {
+public class ItemDto extends BaseEntity {
 
     private Long id;                     // 상품 코드
 

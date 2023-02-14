@@ -1,5 +1,6 @@
 package kr.spring.config;
 // 로그인 관련
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,12 +31,13 @@ public class SecurityConfig {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")) // 로그아웃을 누를 때 처리할 내용
                 .logoutSuccessUrl("/");
 
-        http.authorizeRequests()  // 인증 여부 확인
-                .requestMatchers(new AntPathRequestMatcher("/css/**", "/js/**")).permitAll()  // 모든 사람에게 css 적용
-                .requestMatchers(new AntPathRequestMatcher("/", "/member/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/item/**", "/images/**")).permitAll()  // 아무나 페이지에 들어올 수 있고, member, item 밑에 있는 애들은 모두 permit 허용
-                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN") // admin인 애들만 admin에 접속 가능
-                ; // 인증 받기
+        http.authorizeHttpRequests()  // 인증 여부 확인 -> 스프링 3.0 이하 버전은 authorizeRequests()로 설정
+                // 스프링 3.0 이하 버전은 antMatchers(), mvcMatchers(), regexMatchers()으로 사용
+                .requestMatchers("/css/**", "/js/**").permitAll()  // 모든 사람에게 css 적용
+                .requestMatchers("/", "/member/**", "/item/**", "/images/**").permitAll() // 아무나 페이지에 들어올 수 있고, member, item 밑에 있는 애들은 모두 permit 허용
+                .requestMatchers("/admin/**").hasRole("ADMIN") // admin인 애들만 admin에 접속 가능
+                .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll() // 페이지 이동할 경우 default로 인증기 걸리도록 되어있기 때문에 추가
+                .anyRequest().authenticated(); // 인증 받기
 
         http.exceptionHandling()  // 권한이 없는 경우
                 .authenticationEntryPoint(new CustomEntryPoint());
