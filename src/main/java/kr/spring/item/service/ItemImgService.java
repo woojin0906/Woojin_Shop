@@ -1,5 +1,6 @@
 package kr.spring.item.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import kr.spring.item.entity.ItemImg;
 import kr.spring.item.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +49,26 @@ public class ItemImgService {
         itemImg.updateItemImg(oriImgName, imgName, imgUrl);
         // 이미지만 저장 그러므로 아이템도 저장해줘야함
         itemImgRepository.save(itemImg);
+    }
 
+    // 이미지 수정
+    public void updateItemImg(Long ItemImgId, MultipartFile itemImgFile) throws IOException {
+        // itemImgFile이 빈게 아니면
+        if(!itemImgFile.isEmpty()) {
+            ItemImg itemImg = itemImgRepository.findById(ItemImgId).orElseThrow(EntityNotFoundException::new);
+
+            // 이미지 파일이 존재하는 경우
+            if(!StringUtils.isEmpty(itemImg.getImgName())) {
+                fileService.deleteFile(itemImgLocation + "/" + itemImg.getImgName());
+            }
+
+            String oriName = itemImgFile.getOriginalFilename();
+            String imgName = fileService.uploadFile(itemImgLocation, oriName, itemImgFile.getBytes());
+            String imgUrl = "/images/item/" + imgName;
+
+            itemImg.updateItemImg(oriName, imgName, imgUrl);
+
+        }
     }
 }
 
