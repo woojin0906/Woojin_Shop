@@ -3,6 +3,7 @@ package kr.spring.item.service;
 import jakarta.persistence.EntityNotFoundException;
 import kr.spring.item.dto.ItemFormDto;
 import kr.spring.item.dto.ItemImgDto;
+import kr.spring.item.dto.ItemSearchDto;
 import kr.spring.item.entity.Item;
 import kr.spring.item.entity.ItemImg;
 import kr.spring.item.repository.ItemImgRepository;
@@ -10,6 +11,8 @@ import kr.spring.item.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -96,6 +99,13 @@ public class ItemService {
 
         // 수정 후 어떤 아이템인지 아이템의 아이디를 알려줌
         return item.getId();
+    }
+
+    // 정보 불러오기
+    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+
+        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
+
     }
 
 }
