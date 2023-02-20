@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class ItemFormDto {
 
     private List<ItemImgDto> itemImgDtoList = new ArrayList<>(); // imgDtoList 관리
 
-    private List<Long> itemImgList = new ArrayList<>(); // 이미지들에 대한 번호 관리
+    private List<Long> itemImgIds = new ArrayList<>(); // 이미지들에 대한 번호 관리
 
     private static ModelMapper modelMapper = new ModelMapper(); // 엔티티와 매핑
 

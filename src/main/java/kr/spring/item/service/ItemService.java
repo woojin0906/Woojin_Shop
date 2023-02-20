@@ -9,7 +9,6 @@ import kr.spring.item.entity.ItemImg;
 import kr.spring.item.repository.ItemImgRepository;
 import kr.spring.item.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -84,17 +83,15 @@ public class ItemService {
 
     public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws IOException {
 
+        // 상품 수정
         Item item = itemRepository.findById(itemFormDto.getId()).orElseThrow(EntityNotFoundException::new);
-
         item.updateItem(itemFormDto);
 
-        List<Long> itemImgIds = itemFormDto.getItemImgList();
+        List<Long> itemImgIds = itemFormDto.getItemImgIds();
 
-        for(int i=0; i<itemImgFileList.size(); i++) {
-            // 아이템 이미지 업데이트
-            if(itemImgIds.size() != 0) {
-                itemImgService.updateItemImg(itemImgIds.get(i), itemImgFileList.get(i));
-            }
+        // 이미지 수정
+        for (int i = 0; i < itemImgFileList.size(); i++) {
+            itemImgService.updateItemImg(itemImgIds.get(i), itemImgFileList.get(i));
         }
 
         // 수정 후 어떤 아이템인지 아이템의 아이디를 알려줌

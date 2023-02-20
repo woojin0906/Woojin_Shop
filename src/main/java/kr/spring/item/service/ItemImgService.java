@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import kr.spring.item.entity.ItemImg;
 import kr.spring.item.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +43,6 @@ public class ItemImgService {
             // 파일의 정보는 itemImgFile에 다 있으니까 이걸 byte배열로 가져옴
             imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
             imgUrl = "/images/item/" + imgName;
-
         }
 
         // 실제 상품 이미지 저장

@@ -14,7 +14,7 @@ public class ItemImg extends BaseEntity {
     @Id //기본키 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) //mysql의 경우 identity를 사용.
     @Column(name = "item_img_id")  //name 속성은 column의 이름을 변경할 수 있다.
-    private Long id;                     // 이미지 코드
+    private Long id; // 이미지 코드
 
     private String imgName; // 이미지 파일명
 
