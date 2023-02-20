@@ -3,6 +3,7 @@ package kr.spring.item.service;
 import jakarta.persistence.EntityNotFoundException;
 import kr.spring.item.dto.ItemFormDto;
 import kr.spring.item.dto.ItemImgDto;
+import kr.spring.item.dto.ItemMainDto;
 import kr.spring.item.dto.ItemSearchDto;
 import kr.spring.item.entity.Item;
 import kr.spring.item.entity.ItemImg;
@@ -103,6 +104,11 @@ public class ItemService {
 
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
 
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ItemMainDto> getItemMainDto(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getItemMainPage(itemSearchDto, pageable);
     }
 
 }

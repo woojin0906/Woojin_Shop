@@ -22,8 +22,6 @@
                   var searchBy = $("#searchBy").val();
                   var searchQuery = $("#searchQuery").val();
 
-
-
                   location.href="/admin/items/" + page + "?searchDateType=" + searchDateType
                           + "&searchSellStatus=" + searchSellStatus
                           + "&searchBy=" + searchBy
@@ -31,6 +29,28 @@
             }
 
       </script>
+</th:block>
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+      <style>
+            select {
+                  margin-right: 10px;
+            }
+            .form-control {
+                  display: inline;
+            }
+            input#searchQuery {
+                  width: 30%;
+            }
+            .form-inline.justify-content-center {
+                  text-align: center;
+            }
+            searchDateType, #searchSellStatus, #searchBy {
+                  -webkit-appearance: auto;
+                  padding: 0.5rem 0.7rem;
+            }
+      </style>
 </th:block>
 
 <div layout:fragment="content">
