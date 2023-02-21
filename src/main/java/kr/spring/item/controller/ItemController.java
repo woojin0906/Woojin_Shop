@@ -59,6 +59,7 @@ public class ItemController {
         try {
             itemService.saveItem(itemFormDto, itemImgFileList);
         } catch (IOException e) {
+            e.printStackTrace();
             model.addAttribute("errorMessage", "상품 등록 중에 오류 발생");
             return "item/itemForm";
         }
@@ -122,6 +123,14 @@ public class ItemController {
         model.addAttribute("maxPage", 5);
 
         return "item/itemList";
+    }
+
+    // 아이템 상세 페이지
+    @GetMapping("/item/{itemId}")
+    public String itemDetail(Model model, @PathVariable("itemId") Long itemId) {
+        ItemFormDto itemFormDto= itemService.getItemDetail(itemId);
+        model.addAttribute("item", itemFormDto);
+        return "item/itemDetail";
     }
 
 
