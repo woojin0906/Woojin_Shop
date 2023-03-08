@@ -1,5 +1,5 @@
 package kr.spring.member.dto;
-
+// 회원정보 Form Dto
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

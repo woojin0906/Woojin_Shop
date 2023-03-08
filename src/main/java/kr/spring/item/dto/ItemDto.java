@@ -1,7 +1,5 @@
 package kr.spring.item.dto;
-
-import jakarta.persistence.*;
-import kr.spring.item.constant.ItemSellStatus;
+// 아이템 Dto
 import kr.spring.utils.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;

@@ -34,7 +34,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
     @Override
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
 
-        List<Item> content =  queryFactory
+        List<Item> content = queryFactory
                 .selectFrom(item)
                 .where(regDtsAfter(itemSearchDto.getSearchDateType()),
                         searchSellStatusEq(itemSearchDto.getSearchSellStatus()),
@@ -46,9 +46,9 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                 .fetch(); // 리스트를 가져옴
 
         long total = queryFactory.select(Wildcard.count).from(item)
-                .where(regDtsAfter(itemSearchDto.getSearchDateType()),
-                        searchSellStatusEq(itemSearchDto.getSearchSellStatus()),
-                        searchByLike(itemSearchDto.getSearchBy(), itemSearchDto.getSearchQuery()))
+                                .where(regDtsAfter(itemSearchDto.getSearchDateType()),
+                                    searchSellStatusEq(itemSearchDto.getSearchSellStatus()),
+                                    searchByLike(itemSearchDto.getSearchBy(), itemSearchDto.getSearchQuery()))
                                 .fetchOne();
 
         return new PageImpl<>(content, pageable, total);

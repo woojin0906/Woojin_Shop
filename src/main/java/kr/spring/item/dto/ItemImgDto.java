@@ -1,5 +1,5 @@
 package kr.spring.item.dto;
-
+// 아이템 이미지 Dto
 import kr.spring.item.entity.ItemImg;
 import lombok.Getter;
 import lombok.Setter;

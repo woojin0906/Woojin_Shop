@@ -1,5 +1,5 @@
 package kr.spring.item.dto;
-
+// 아이템 Form Dto
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import kr.spring.item.entity.Item;

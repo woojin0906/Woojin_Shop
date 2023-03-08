@@ -1,6 +1,5 @@
 package kr.spring.config;
 // 언제나 쓸 수 있도록 빈 등록
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

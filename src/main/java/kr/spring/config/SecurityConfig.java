@@ -1,5 +1,5 @@
 package kr.spring.config;
-// 로그인 관련
+// 로그인 보안 관련
 import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
 // 설정 파일로 쓸 수 있다고 알려주는 어노테이션
 @Configuration
 // 로그인을 하기 위한 설정

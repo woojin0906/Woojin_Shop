@@ -1,5 +1,5 @@
 package kr.spring.item.dto;
-
+// 아이템 검색 Dto
 import kr.spring.item.constant.ItemSellStatus;
 import lombok.Getter;
 import lombok.Setter;

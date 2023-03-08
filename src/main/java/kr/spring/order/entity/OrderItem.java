@@ -1,5 +1,5 @@
 package kr.spring.order.entity;
-
+// 주문 품목 엔티티
 import jakarta.persistence.*;
 import kr.spring.item.entity.Item;
 import kr.spring.utils.entity.BaseEntity;

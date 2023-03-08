@@ -1,5 +1,5 @@
 package kr.spring.item.dto;
-
+// 아이템 메인 Dto (메인 화면)
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import lombok.Setter;

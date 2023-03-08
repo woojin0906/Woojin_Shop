@@ -5,7 +5,6 @@ import kr.spring.member.entity.Member;
 import kr.spring.utils.entity.BaseEntity;
 import lombok.*;
 
-
 @Entity
 @Getter
 @Setter

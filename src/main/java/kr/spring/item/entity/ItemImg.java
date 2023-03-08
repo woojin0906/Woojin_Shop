@@ -1,5 +1,5 @@
 package kr.spring.item.entity;
-
+// 아이템 이미지 엔티티
 import jakarta.persistence.*;
 import kr.spring.utils.entity.BaseEntity;
 import lombok.*;

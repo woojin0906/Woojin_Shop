@@ -1,5 +1,5 @@
 package kr.spring.item.entity;
-// 아이템 엔티티 생성
+// 아이템 엔티티
 import jakarta.persistence.*;
 import kr.spring.item.constant.ItemSellStatus;
 import kr.spring.item.dto.ItemFormDto;

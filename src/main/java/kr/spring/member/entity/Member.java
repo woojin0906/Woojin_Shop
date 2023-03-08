@@ -1,5 +1,5 @@
 package kr.spring.member.entity;
-
+// 회원 엔티티
 import jakarta.persistence.*;
 import kr.spring.member.constant.Role;
 import kr.spring.member.dto.MemberFormDto;
