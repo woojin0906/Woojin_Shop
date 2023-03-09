@@ -49,9 +49,9 @@ public class ItemService {
 
             // 첫 번째 이미지면 대표 이미지로 씀
             if(i == 0) {
-                itemImg.setRepImgYn("Y");
+                itemImg.setRepimgYn("Y");
             } else {
-                itemImg.setRepImgYn("N");
+                itemImg.setRepimgYn("N");
             }
 
             // 실제로 DB에 집어넣어야한다 파일 리스트에 있는 애들 중 i번째에 있는 애들을 꺼내서 등록을 해줌
