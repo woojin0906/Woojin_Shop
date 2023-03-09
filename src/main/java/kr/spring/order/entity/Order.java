@@ -44,4 +44,34 @@ public class Order extends BaseEntity {
 //
 //    private LocalDateTime updateTime;
 
+    // OrderItem 객체 연결 및 자신을 연결하는 메소드
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem); // 주문 객체에 주문 상품 객체 연결
+        orderItem.setOrder(this);  // 주문 상품 객체에 주문 객체 연결(연관 관계 주인)
+    }
+
+    // 주문 객체를 만드는 메소드
+    public static Order createOrder(Member member, List<OrderItem> orderItemList) {
+        Order order = new Order();
+        order.setMember(member);
+
+        for(OrderItem orderItem : orderItemList) {
+            order.addOrderItem(orderItem);
+        }
+
+        order.setOrderStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    // 각 주문 상품의 TotalPrice를 구한 뒤 모두 더하는 메소드
+    public int getTotalPrice() {
+        int totalPrice = 0;
+
+        // 각 상품마다 TotalPrice를 구하고 모두 더함
+        for(OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
+    }
 }

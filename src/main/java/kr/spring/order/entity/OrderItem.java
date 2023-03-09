@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @Setter
@@ -39,4 +37,19 @@ public class OrderItem extends BaseEntity {
 //
 //    private LocalDateTime updateTime;
 
+    // 주문 상품과 주문 수량 정보를 가지고 있는 메소드
+    public static OrderItem createOrderItem(Item item, int count) {
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setCount(count);
+        orderItem.setOrderPrice(item.getPrice());
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    public int getTotalPrice() {
+        return orderPrice * count;
+    }
 }

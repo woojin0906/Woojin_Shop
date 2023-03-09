@@ -1,6 +1,7 @@
 package kr.spring.item.entity;
 // 아이템 엔티티
 import jakarta.persistence.*;
+import kr.spring.exception.OutOfStockException;
 import kr.spring.item.constant.ItemSellStatus;
 import kr.spring.item.dto.ItemFormDto;
 import kr.spring.utils.entity.BaseEntity;
@@ -54,5 +55,17 @@ public class Item extends BaseEntity {
         this.itemDetail = itemFormDto.getItemDetail();
         this.itemSellStatus = ItemSellStatus.valueOf(itemFormDto.getItemSellStatus());
 
+    }
+
+    // 상품 재고 변경
+    public void removeStock(int stockNumber) {
+        // (기존 재고 - 주문 수량 재고)
+        int restStock = this.stockNumber - stockNumber;
+
+        // 만약 0보다 작다면 재고가 부족한 것이므로 Exception 발생
+        if(restStock < 0) {
+            throw new OutOfStockException("상품의 재고가 부족합니다. (현재 재고 수량 : " + this.stockNumber + ")");
+        }
+        this.stockNumber = restStock;
     }
 }
