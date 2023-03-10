@@ -21,4 +21,12 @@ public class Cart extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    // 회원의 장바구니 생성
+    public static Cart createCart(Member member) {
+        Cart cart = new Cart();
+        cart.setMember(member);
+
+        return cart;
+    }
+
 }
