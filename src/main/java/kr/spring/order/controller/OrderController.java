@@ -5,6 +5,7 @@ import kr.spring.order.dto.OrderDto;
 import kr.spring.order.dto.OrderHistDto;
 import kr.spring.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -67,5 +68,17 @@ public class OrderController {
         model.addAttribute("maxPage", 5);
 
         return "order/orderHist";
+    }
+
+    // 주문번호를 받아서 주문 취소를 호출하는 메소드
+    @PostMapping("/order/{orderId}/cancel")
+    public @ResponseBody ResponseEntity cancelOrder(@PathVariable("orderId") Long orderId, Principal principal) {
+
+        if(!orderService.validateOrder(orderId, principal.getName())) {
+            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
+        }
+
+        orderService.cancelOrder(orderId);
+        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
 }

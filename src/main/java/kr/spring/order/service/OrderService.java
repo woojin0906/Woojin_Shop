@@ -14,15 +14,17 @@ import kr.spring.order.entity.Order;
 import kr.spring.order.entity.OrderItem;
 import kr.spring.order.respository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -64,12 +66,30 @@ public class OrderService {
             OrderHistDto orderHistDto = new OrderHistDto(order);
             List<OrderItem> orderItems = order.getOrderItems();
             for(OrderItem orderItem : orderItems) {
-                ItemImg itemImg = itemImgRepository.findByItemAndRepimgYn(orderItem.getItem().getId(), "Y");
+                ItemImg itemImg = itemImgRepository.findByItemAndRepimgYn(orderItem.getItem(), "Y");
                 OrderItemDto orderItemDto = new OrderItemDto(orderItem, itemImg.getImgUrl());
                 orderHistDto.addOrderItemDto(orderItemDto);
             }
             orderHistDtos.add(orderHistDto);
         }
         return new PageImpl<OrderHistDto>(orderHistDtos, pageable, totalCount);
+    }
+
+    // 주문 취소
+    @Transactional(readOnly = true)
+    public boolean validateOrder(Long orderId, String email) {
+        Member curMember = memberRepository.findByEmail(email);
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        Member savedMember = order.getMember();
+
+        if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
+            return false;
+        }
+        return true;
+    }
+
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        order.cancelOrder();
     }
 }
