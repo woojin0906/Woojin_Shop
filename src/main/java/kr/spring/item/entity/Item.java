@@ -7,8 +7,6 @@ import kr.spring.item.dto.ItemFormDto;
 import kr.spring.utils.entity.BaseEntity;
 import lombok.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "my_item") // 테이블 명칭 지정
