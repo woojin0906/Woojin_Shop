@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.test.context.TestPropertySource;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

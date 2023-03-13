@@ -2,7 +2,6 @@ package kr.spring.cart.entity;
 
 import jakarta.persistence.*;
 import kr.spring.item.entity.Item;
-import kr.spring.member.entity.Member;
 import kr.spring.utils.entity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
