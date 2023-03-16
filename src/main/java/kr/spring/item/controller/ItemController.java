@@ -67,6 +67,7 @@ public class ItemController {
         return "redirect:/";
     }
 
+    // 상품 수정
     @GetMapping("/admin/item/{itemId}")
     public String itemDetail(@PathVariable("itemId")Long itemId, Model model) {
 
@@ -108,6 +109,7 @@ public class ItemController {
         return "redirect:/";
     }
 
+    // 요청 URL에 페이지 번호가 없는 경우와 있는 경우 2가지를 매핑
     @GetMapping({"/admin/items", "/admin/items/{page}"})
     public String itemList(ItemSearchDto itemSearchDto, Model model,
                            @PathVariable("page")Optional<Integer> page) {
@@ -119,7 +121,7 @@ public class ItemController {
         model.addAttribute("items", items);
         // 검색어 다시 받아오기
         model.addAttribute("itemSearchDto", itemSearchDto);
-        // 페이지의 갯수
+        // View 단에서 하단에 보여줄 페이지 번호의 최대 개수 설정
         model.addAttribute("maxPage", 5);
 
         return "item/itemList";

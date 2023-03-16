@@ -88,6 +88,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         return StringUtils.isEmpty(searchQuery) ? null : item.itemNm.like("%" + searchQuery + "%");
     }
 
+    // 상품 상태에 대한 조회 조건 BooleanExpression
     private BooleanExpression searchSellStatusEq(ItemSellStatus searchSellStatus) {
 
         return searchSellStatus == null ? null : item.itemSellStatus.eq(searchSellStatus);
@@ -112,6 +113,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         return item.regTime.after(dateTime);
     }
 
+    // 상품명 또는 등록자 아이디에 대한 조회 조건 BooleanExpression
     private BooleanExpression searchByLike(String searchBy, String searchQuery) {
 
         // 방법에 따라 다름
