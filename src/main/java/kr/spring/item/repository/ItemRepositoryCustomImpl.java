@@ -61,6 +61,9 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         QItemImg itemImg = QItemImg.itemImg;
 
         QueryResults<ItemMainDto> results = queryFactory
+                // MainItemDto 객체를 반환
+                // 멤버변수 초기화는 조회된 결과값에서 MainItemDto 객체 생성자를 통해 지정
+                // 즉, db 조회 결과는 itemImg-item 조인된 결과가 반환되지만 그 중 일부만 사용
                 .select(
                         new QItemMainDto(
                                 item.id,
@@ -70,7 +73,9 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 item.price)
                         )
                 .from(itemImg)
+                // itemImg 테이블의 item 필드가 참조하는 item 테이블 조인
                 .join(itemImg.item, item)
+                // 5개의 이미지중에서 대표사진만을 조회
                 .where(itemImg.repimgYn.eq("Y"))
                 .where(itemNmLike(itemSearchDto.getSearchQuery()))
                 .orderBy(item.id.desc())
@@ -84,6 +89,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
 
     }
 
+    // 검색어가 포함된 상품 조회 조건 BooleanExpression
     private BooleanExpression itemNmLike(String searchQuery) {
         return StringUtils.isEmpty(searchQuery) ? null : item.itemNm.like("%" + searchQuery + "%");
     }

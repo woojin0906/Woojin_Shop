@@ -31,6 +31,7 @@
       $("#orderTotalPrice").html(orderTotalPrice+'원');
     }
 
+    // 상품 수량 변경
     function changeCount(obj){
       var count = obj.value;
       var cartItemId = obj.id.split('_')[1];
@@ -41,6 +42,7 @@
       updateCartItemCount(cartItemId, count);
     }
 
+    // 상품 전체 선택 및 해제
     function checkAll(){
       if($("#checkall").prop("checked")){
         $("input[name=cartChkBox]").prop("checked",true);
@@ -54,6 +56,7 @@
       var token = $("meta[name='_csrf']").attr("content");
       var header = $("meta[name='_csrf_header']").attr("content");
 
+      // 상품 Id 값은 PathVariable, 수량(count)은 QueryString
       var url = "/cartItem/" + cartItemId+"?count=" + count;
 
       $.ajax({
@@ -228,6 +231,7 @@
             <span th:text="${cartItem.itemNm}" class="fs24 font-weight-bold"></span>
             <div class="fs18 font-weight-light">
                             <span class="input-group mt-2">
+                                <!-- id = price{CartItemId} 엘리먼트에 data 자료구조 생성 후 key = price 에 대한 value 지정 -->
                                 <span th:id="'price_' + ${cartItem.cartItemId}"
                                       th:data-price="${cartItem.price}"
                                       th:text="${cartItem.price} + '원'" class="align-self-center mr-2">
