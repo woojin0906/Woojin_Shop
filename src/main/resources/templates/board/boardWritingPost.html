@@ -1,0 +1,115 @@
+<!-- 게시판 등록 HTML -->
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+  <style>
+    /* main */
+    main{
+      margin-top: 100px;
+    }
+    .main_name {
+      margin-left: 240px;
+      color: #000000;
+      font-size: x-large;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    table {
+      border-top: 3px solid #000000;
+      border-collapse: collapse;
+      margin: auto;
+    }
+    th, td {
+      padding: 7px;
+    }
+    th {
+      text-align: left;
+      padding-left: 15px;
+      padding-right: 15px;
+      font-size: 15px;
+    }
+    #_title, #_startDate, #_lastDate, #_step {
+      border: 1px solid #cacaca;
+      padding: 7px; margin: 1px;
+      font-size: 13px;
+    }
+    #_title, #_context, #_startDate, #_lastDate, #_step {
+      width: 700px;
+      border-radius: 10px;
+    }
+    ._category{ margin: 9px; }
+    #_context { border: 1px solid #d8d6d6; }
+    #btn {
+      margin: auto;
+      display: block;
+      padding: 12px 40px 12px 40px;
+      font-size: 16px;
+      background-color: #000000;
+      color: white;
+      border: 1px solid #000000;
+      border-radius: 5px;
+    }
+    .campaing_post_name {
+      text-align: center;
+      font-size: x-large;
+      font-weight: bold;
+    }
+    .step {
+      text-align: center;
+      margin: 10px 0px;
+      color: darkgray;
+    }
+    .step_content {
+      margin: 10px 0px 70px 450px;
+      font-weight: bold;
+    }
+    .step_num {
+      color: #55575a;
+      font-weight: bold;
+      font-size: 12px;
+    }
+    .step_content_item {
+      margin-left: 3px;
+    }
+  </style>
+</th:block>
+
+<div layout:fragment="content">
+  <div id="main_footer">
+    <main>
+      <div class="main">
+        <div class="main_name">
+          게시글 작성
+        </div>
+        <form id="form_1" action="" method="post" >
+          <table>
+            <tr>
+              <th>제목</th>
+              <td><input id="_title" type="text" name="_title" size="120" maxlength="100" value="" placeholder="제목 입력"/></td>
+            </tr>
+            <tr>
+              <th>단체명</th>
+              <td>MiracleStep<input type="hidden" name="_nickname" value=""></td> <!-- 여기에는 단체명을 받아올 예정 -->
+            </tr>
+            <tr>
+              <th>등록일</th>
+              <td>2023.03.29<input type="hidden" name="_date" size="120" maxlength="100" value="" placeholder="등록일"/></td> <!-- 현재 날짜 받아올 예정 -->
+            </tr>
+            <tr>
+              <th>내용</th>
+              <td><textarea id="_context" name="_context" cols="122" rows="10"></textarea></td>
+            </tr>
+            <tr>
+              <td colspan="2"><input id="btn" type="button" value="작성완료"></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>
+</html>
