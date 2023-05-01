@@ -41,12 +41,11 @@ public class MemberController {
         if(bindingResult.hasErrors()) {  // bindingResult가 하나라도 에러인 경우
             return "member/memberForm";
         }
-
         try { //회원가입을 처리하는 구문
             Member member = Member.createMember(memberFormDto, passwordEncoder);
             memberService.saveMember(member);
         } catch (IllegalStateException e) { //회원가입 처리 시 문제가 생기면 에러메세지 띄우기
-            model.addAttribute("errerMessage", e.getMessage());
+            model.addAttribute("errorMessage", e.getMessage());
             //문제가 있으면 회원가입으로 돌아감
             return "member/memberForm";
         }

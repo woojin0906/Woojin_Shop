@@ -51,11 +51,6 @@
                   </div>
             </div>
 
-            <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
-            <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
-                  <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
-            </div>
-
             <div class="row">
                   <th:block th:each="item, status: ${items.getContent()}">
                         <div class="col-md-4 margin">
@@ -77,17 +72,17 @@
                   <ul class="pagination justify-content-center">
 
                         <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
-                              <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
+                              <a th:href="@{'/?page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
                                     <span aria-hidden='true'>Previous</span>
                               </a>
                         </li>
 
                         <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
-                              <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
+                              <a th:href="@{'/?page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
                         </li>
 
                         <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
-                              <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
+                              <a th:href="@{'/?page=' + ${items.number+1}}" aria-label='Next' class="page-link">
                                     <span aria-hidden='true'>Next</span>
                               </a>
                         </li>

@@ -33,6 +33,7 @@ public class MemberService implements UserDetailsService {
     private void validateDuplicate(Member member) {
         //이메일로 찾았을 때 값이 있는지 없는지 판단
         Member findMember = memberRepository.findByEmail(member.getEmail());
+
         // DB에서 이메일이 검색이 되면 이미 등록되어있는 회원이라는 알림 표시
         if(findMember != null) {
             throw new IllegalStateException("이미 등록된 사용자 입니다.");

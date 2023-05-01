@@ -2,6 +2,7 @@ package kr.spring.main.controller;
 
 import kr.spring.item.dto.ItemMainDto;
 import kr.spring.item.dto.ItemSearchDto;
+import kr.spring.item.entity.Item;
 import kr.spring.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -37,4 +38,5 @@ public class MainController {
 
         return "main";
     }
+
 }

@@ -23,6 +23,7 @@
       <script th:inline="javascript">
             $(document).ready(function(){
                   var errorMessage = [[${errorMessage}]];
+                  // document.write(errorMessage + "aaa");
                   if(errorMessage != null){
                         alert(errorMessage);
                   }
