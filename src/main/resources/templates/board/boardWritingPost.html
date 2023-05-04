@@ -62,10 +62,7 @@
           <span class="input-group-text">작성자</span>
         </div>
         <span class="input-group-text" th:text="${memberId}">작성자</span>
-
-      </div>
-      <p th:if="${#fields.hasErrors('title')}" th:errors="*{writer}"
-         class="fieldError">Incorrect data</p>
+<!--        <input type="text" th:field="*{writer}" class="form-control">-->
 
       <div class="input-group">
         <div class="input-group-prepend">

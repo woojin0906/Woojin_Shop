@@ -1,7 +1,10 @@
 package kr.spring.board.entity;
 
 import jakarta.persistence.*;
+import kr.spring.board.dto.BoardFormDto;
 import kr.spring.cart.entity.Cart;
+import kr.spring.item.constant.ItemSellStatus;
+import kr.spring.item.dto.ItemFormDto;
 import kr.spring.member.entity.Member;
 import kr.spring.utils.entity.BaseEntity;
 import lombok.Getter;
@@ -33,5 +36,11 @@ public class Board extends BaseEntity {
 
     @Column(nullable = false)
     private String content;  // 게시글 내용
+
+    public void updateBoard(BoardFormDto boardFormDto) {
+        this.title = boardFormDto.getTitle();
+        this.writer = boardFormDto.getWriter();
+        this.content = boardFormDto.getContent();
+    }
 
 }

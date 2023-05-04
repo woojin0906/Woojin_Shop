@@ -1,13 +1,11 @@
 package kr.spring.board.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
-import kr.spring.board.dto.BoardDto;
 import kr.spring.board.dto.BoardFormDto;
 import kr.spring.board.dto.BoardSearchDto;
 import kr.spring.board.entity.Board;
 import kr.spring.board.service.BoardService;
-import kr.spring.item.dto.ItemSearchDto;
-import kr.spring.item.entity.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -40,8 +39,8 @@ public class BoardController {
     @PostMapping("/board/new")
     // boardFormDto에 에러 발생 시 메시지 주려고 처리해놨으므로 @Valid 해줌
     public String boardNew(@Valid BoardFormDto boardFormDto, BindingResult bindingResult,
-                          Model model) {
-
+                          Model model, Principal principal) {
+        String email = principal.getName();
 
         // 에러가 있는 경우 상품등록으로 다시 가기
         if(bindingResult.hasErrors()) {
@@ -49,14 +48,14 @@ public class BoardController {
         }
 
         try {
-            boardService.savePost(boardFormDto);
+            boardService.savePost(boardFormDto, email);
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMessage", "게시글 등록 중에 오류 발생");
             return "board/boardWritingPost";
         }
 
-        return "redirect:/";
+        return "redirect:/"; // 리스트로 이동하도록 변경할 예정
     }
 
     // 요청 URL에 페이지 번호가 없는 경우와 있는 경우 2가지를 매핑
@@ -77,6 +76,46 @@ public class BoardController {
         return "board/boardList";
     }
 
+    // 게시글 수정
+    @GetMapping("/boards/{boardId}")
+    public String boardDetail(@PathVariable("boardId")Long boardId, Model model, Principal principal) {
+        String email = principal.getName();
+        model.addAttribute("memberId", email);
+
+        try {
+            BoardFormDto boardFormDto = boardService.getBoardDetail(boardId);
+            model.addAttribute("boardFormDto", boardFormDto); // boardPost.html에서 boardFormDto로 받기 때문에
+        } catch (EntityNotFoundException E) {
+            model.addAttribute("errorMessage", "존재하지 않는 게시글입니다.");
+            model.addAttribute("boardFormDto", new BoardFormDto());
+            return "board/boardPost";
+        }
+
+        return "board/boardPost";
+
+    }
+
+
+
+    // 게시글 수정 후 할 일
+    @PostMapping("/boards/{boardId}")
+    public String boardUpdate(@Valid BoardFormDto boardFormDto, BindingResult bindingResult
+            , Model model) {
+
+        if(bindingResult.hasErrors()) {
+            return "board/boardPost";
+        }
+
+        try {
+            boardService.updateBoard(boardFormDto);
+        } catch (IOException e) {
+            model.addAttribute("errorMessage", "게시글 수정 중에 오류가 발생했습니다.");
+            return "board/boardPost";
+        }
+
+        // 홈으로 리턴
+        return "redirect:/";
+    }
 
 
 }

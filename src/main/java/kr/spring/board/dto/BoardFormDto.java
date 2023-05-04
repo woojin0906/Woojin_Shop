@@ -2,7 +2,6 @@ package kr.spring.board.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import kr.spring.board.entity.Board;
-import kr.spring.item.entity.Item;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
@@ -25,6 +24,10 @@ public class BoardFormDto {
 
     public Board createPost() {
         return modelMapper.map(this, Board.class); // dto를 엔티티로 변환
+    }
+
+    public static BoardFormDto of(Board board) {
+        return modelMapper.map(board, BoardFormDto.class); // 엔티티를 dto로 변환
     }
 
 }
