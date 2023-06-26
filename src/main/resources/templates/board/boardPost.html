@@ -7,6 +7,10 @@
 <head>
   <meta http-equiv="Content-Type" content = "text/html; charset=UTF-8" />
   <title>게시글 | Woojin Shop</title>
+  <!-- jquery 적용 -->
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+  <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 
 <!-- 사용자 스크립트 추가 -->
@@ -38,6 +42,7 @@
         cache   : false,
         success  : function(result, status){
           location.href='/board';
+          alert("게시글이 삭제되었습니다.")
         },
         error : function(jqXHR, status, error){
 
@@ -113,7 +118,7 @@
           <button th:formaction="@{'/boards/' + ${boardFormDto.id} }" type="submit" class="btn btn-primary">수정</button>
 
           <!-- 삭제 -->
-          <button th:method="DELETE" class="btn btn-primary" th:data-id="${boardFormDto.id}" onclick="deleteBoard(this)">삭제</button>
+          <button type="button" class="btn btn-primary" th:data-id="${boardFormDto.id}" onclick="deleteBoard(this)">삭제</button>
 
         </div>
 

@@ -72,6 +72,14 @@ public class BoardService {
         return board.getId();
     }
 
+    // 게시글 삭제
+    public String deleteCartItem(Long boardId) {
+        Board board = boardRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
+        boardRepository.delete(board);
+
+        return "삭제가 완료되었습니다.";
+    }
+
     // 현재 로그인한 회원과 게시글을 작성한 회원이 같은지 검사
     @Transactional(readOnly = true)
     public boolean validateCartItem(Long boardId, String email) {
@@ -85,12 +93,6 @@ public class BoardService {
         }
 
         return true;
-    }
-
-    // 게시글 삭제
-    public void deleteCartItem(Long boardId) {
-        Board board = boardRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
-        boardRepository.deleteById(boardId);
     }
 
 }

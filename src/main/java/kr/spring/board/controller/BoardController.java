@@ -114,12 +114,9 @@ public class BoardController {
         return "redirect:/";
     }
 
+    // 게시판 삭제
     @DeleteMapping("/boards/{boardId}")
-    public @ResponseBody ResponseEntity deleteBoard(@PathVariable("boardId") Long boardId, Principal principal) {
-
-        if(!boardService.validateCartItem(boardId, principal.getName())) {
-            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
-        }
+    public @ResponseBody ResponseEntity deleteBoard(@PathVariable Long boardId) {
 
         boardService.deleteCartItem(boardId);
         return new ResponseEntity<Long>(boardId, HttpStatus.OK);
