@@ -64,7 +64,7 @@ public class ItemController {
             return "item/itemForm";
         }
 
-        return "redirect:/";
+        return "redirect:/admin/items";
     }
 
     // 상품 수정
@@ -106,7 +106,7 @@ public class ItemController {
         }
 
         // 홈으로 리턴
-        return "redirect:/";
+        return "redirect:/admin/items";
     }
 
     // 요청 URL에 페이지 번호가 없는 경우와 있는 경우 2가지를 매핑

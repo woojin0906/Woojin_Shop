@@ -55,7 +55,7 @@ public class BoardController {
             return "board/boardWritingPost";
         }
 
-        return "redirect:/"; // 리스트로 이동하도록 변경할 예정
+        return "redirect:/board"; // 리스트로 이동하도록 변경할 예정
     }
 
     // 요청 URL에 페이지 번호가 없는 경우와 있는 경우 2가지를 매핑
@@ -111,7 +111,7 @@ public class BoardController {
         }
 
         // 홈으로 리턴
-        return "redirect:/";
+        return "redirect:/board";
     }
 
     // 게시판 삭제
