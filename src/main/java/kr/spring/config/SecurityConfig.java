@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .requestMatchers("/css/**", "/js/**").permitAll()  // 모든 사람에게 css 적용
                 .requestMatchers("/", "/member/**", "/item/**", "/images/**").permitAll() // 아무나 페이지에 들어올 수 있고, member, item 밑에 있는 애들은 모두 permit 허용
                 .requestMatchers("/admin/**").hasRole("ADMIN") // admin인 애들만 admin에 접속 가능
+                .requestMatchers("/error").permitAll()
                 .anyRequest().authenticated(); // 인증 받기
 
         http.exceptionHandling()  // 권한이 없는 경우

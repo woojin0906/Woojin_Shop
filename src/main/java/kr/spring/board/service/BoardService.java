@@ -5,6 +5,7 @@ import kr.spring.board.dto.BoardFormDto;
 import kr.spring.board.dto.BoardSearchDto;
 import kr.spring.board.entity.Board;
 import kr.spring.board.repository.BoardRepository;
+import kr.spring.cart.entity.CartItem;
 import kr.spring.item.dto.ItemFormDto;
 import kr.spring.item.dto.ItemImgDto;
 import kr.spring.item.dto.ItemSearchDto;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
 
     public Long savePost(BoardFormDto boardFormDto, String email) throws Exception {
 
@@ -69,5 +72,25 @@ public class BoardService {
         return board.getId();
     }
 
+    // 현재 로그인한 회원과 게시글을 작성한 회원이 같은지 검사
+    @Transactional(readOnly = true)
+    public boolean validateCartItem(Long boardId, String email) {
+        Member curMember = memberRepository.findByEmail(email);
+        Board board = boardRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
+
+        String writer = board.getWriter();
+
+        if(!StringUtils.equals(curMember.getEmail(), writer)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // 게시글 삭제
+    public void deleteCartItem(Long boardId) {
+        Board board = boardRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
+        boardRepository.deleteById(boardId);
+    }
 
 }
