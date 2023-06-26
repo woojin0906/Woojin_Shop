@@ -1,6 +1,7 @@
 package kr.spring.item.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import kr.spring.item.entity.Item;
 import kr.spring.item.entity.ItemImg;
 import kr.spring.item.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor // 이걸 사용하면 autowired를 안해도 됨
@@ -69,6 +71,14 @@ public class ItemImgService {
 
         }
     }
+
+    public String deleteItemImg(Long itemId) {
+        List<ItemImg> itemImg = itemImgRepository.findByItemId(itemId);
+        itemImgRepository.deleteAll(itemImg);
+
+        return "삭제가 완료되었습니다.";
+    }
+
 }
 
 

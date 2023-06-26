@@ -5,19 +5,19 @@ import jakarta.validation.Valid;
 import kr.spring.item.dto.ItemFormDto;
 import kr.spring.item.dto.ItemSearchDto;
 import kr.spring.item.entity.Item;
+import kr.spring.item.service.ItemImgService;
 import kr.spring.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class ItemController {
 
     // @Autowired ->  @RequiredArgsConstructor를 써도 됨 (final 붙여야함)
     private final ItemService itemService;
-
+    private final ItemImgService itemImgService;
     // 웹 페이지로 이동
     @GetMapping("/admin/item/new")
     public String itemForm(Model model) {
@@ -135,5 +135,14 @@ public class ItemController {
         return "item/itemDetail";
     }
 
+    // 아이템 삭제
+    @DeleteMapping("/item/{itemId}")
+    public @ResponseBody ResponseEntity deleteItem(@PathVariable Long itemId) {
+
+        itemImgService.deleteItemImg(itemId);
+        itemService.deleteItem(itemId);
+
+        return new ResponseEntity<Long>(itemId, HttpStatus.OK);
+    }
 
 }

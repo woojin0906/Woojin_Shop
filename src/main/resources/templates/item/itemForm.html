@@ -5,6 +5,8 @@
       layout:decorate="~{layouts/layout1}">
 <head>
       <meta http-equiv="Content-Type" content = "text/html; charset=UTF-8" />
+      <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+      <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
       <title>상품 등록 | Woojin Shop</title>
 </head>
 <!-- 사용자 스크립트 추가 -->
@@ -33,6 +35,39 @@
                         }
                         //화면에 파일명을 나타낸다
                         $(this).siblings(".custom-file-label").html(fileName);
+                  });
+            }
+
+            function deleteItem(obj){
+                  var itemId = obj.dataset.id;
+                  var token = $("meta[name='_csrf']").attr("content");
+                  var header = $("meta[name='_csrf_header']").attr("content");
+
+                  var url = "/item/" + itemId;
+
+                  $.ajax({
+                        url      : url,
+                        type     : "DELETE",
+                        beforeSend : function(xhr){
+                              /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                              xhr.setRequestHeader(header, token);
+                        },
+                        dataType : "json",
+                        cache   : false,
+                        success  : function(result, status){
+                              location.href='/admin/items';
+                              alert("아이템이 삭제되었습니다.")
+                        },
+                        error : function(jqXHR, status, error){
+
+                              if(jqXHR.status == '401'){
+                                    alert('로그인 후 이용해주세요');
+                                    location.href='/members/login';
+                              } else{
+                                    alert(jqXHR.responseJSON.message);
+                              }
+
+                        }
                   });
             }
 
@@ -154,6 +189,7 @@
                         <!--            상품 아이디가 있는 경우 수정 로직을 호출하는 벼튼을 보여줌-->
                         <button th:formaction="@{'/admin/item/' + ${itemFormDto.id} }"
                                 type="submit" class="btn btn-primary">수정</button>
+                        <button type="button" class="btn btn-primary" th:data-id="${itemFormDto.id}" onclick="deleteItem(this)">삭제</button>
                   </div>
                   <!--  csrf 체크해서 이동 -->
                   <input type="hidden" th:name="${_csrf.parameterName}"

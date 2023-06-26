@@ -13,4 +13,7 @@ public interface ItemImgRepository extends JpaRepository<ItemImg, Long> {
     // 구매 내역 페이지에서 주문 상품의 대표 이미지를 위한 조회
     ItemImg findByItemAndRepimgYn(Item item, String repimgYn);
 
+    List<ItemImg> findByItemId(Long itemId);
+
+    void deleteAllByItemId(ItemImg itemImg);
 }

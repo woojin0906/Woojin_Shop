@@ -1,6 +1,7 @@
 package kr.spring.item.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import kr.spring.board.entity.Board;
 import kr.spring.item.dto.ItemFormDto;
 import kr.spring.item.dto.ItemImgDto;
 import kr.spring.item.dto.ItemMainDto;
@@ -104,6 +105,14 @@ public class ItemService {
 
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
 
+    }
+
+    // 아이템 삭제
+    public String deleteItem(Long itemId) {
+        Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
+        itemRepository.delete(item);
+
+        return "삭제가 완료되었습니다.";
     }
 
     @Transactional(readOnly = true)
