@@ -75,7 +75,7 @@
                               <a th:href="'/boards/'+${board.id}" th:text="${board.title}"></a>
                         </td>
                         <td th:text="${board.createdBy}"></td>
-                        <td th:text="${board.regTime}"></td>
+                        <td th:text="${#temporals.format(board.regTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                   </tr>
                   </tbody>
             </table>

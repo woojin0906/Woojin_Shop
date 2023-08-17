@@ -76,10 +76,11 @@
 
 <body>
 <div layout:fragment="content">
-  <form role="form" method="get" enctype="multipart/form-data" th:action="@{/boards/edit/{id}(id=${boardFormDto.id})}" th:object="${boardFormDto}">
-    <div>
 
-      <p class="h2">게시글</p>
+  <form role="form" method="post" enctype="multipart/form-data" th:action="@{/boards/{id}(id=${boardFormDto.id})}" th:object="${boardFormDto}">
+    <input type="hidden" name="_method" value="PUT">
+    <div>
+      <p class="h2">게시글 수정</p>
 
       <input type="hidden" th:field="*{id}">
 
@@ -87,7 +88,8 @@
         <div class="input-group-prepend">
           <span class="input-group-text">제목</span>
         </div>
-        <span class="input-group-text" th:text="*{title}">제목</span>
+        <input type="text" th:field="*{title}" class="form-control"
+               placeholder="제목을 입력해주세요">
       </div>
       <p th:if="${#fields.hasErrors('title')}"  th:errors="*{title}"
          class="fieldError">Incorrect data</p>
@@ -97,30 +99,20 @@
           <span class="input-group-text">작성자</span>
         </div>
         <span class="input-group-text" th:text="*{writer}">작성자</span>
+        <input type="hidden" th:field="*{writer}">
 
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">게시글 내용</span>
           </div>
-<!--          <textarea class="form-control" aria-label="With textarea"-->
-<!--                    th:field="*{content}"></textarea>-->
-          <span class="input-group-text" th:text="*{content}">게시글 내용</span>
+          <textarea class="form-control" aria-label="With textarea"
+                    th:field="*{content}"></textarea>
         </div>
-        <div th:if="${memberId} eq *{writer}">
-          <button type="submit" class="btn btn-primary">수정</button>
-
-          <!-- 삭제 -->
-          <button type="button" class="btn btn-primary" th:data-id="${boardFormDto.id}" onclick="deleteBoard(this)">삭제</button>
-        </div>
+        <button type="submit" class="btn btn-primary">수정</button>
         <p th:if="${#fields.hasErrors('content')}"
            th:errors="*{content}" class="fieldError">Incorrect data</p>
-
       </div>
     </div>
-      <!--  csrf 체크해서 이동 -->
-      <input type="hidden" th:name="${_csrf.parameterName}"
-             th:value="${_csrf.token}">
-
   </form>
 </div>
 </body>

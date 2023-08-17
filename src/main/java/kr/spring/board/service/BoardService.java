@@ -63,10 +63,11 @@ public class BoardService {
     }
 
     public Long updateBoard(BoardFormDto boardFormDto) throws IOException {
-
         // 상품 수정
         Board board = boardRepository.findById(boardFormDto.getId()).orElseThrow(EntityNotFoundException::new);
         board.updateBoard(boardFormDto);
+
+        boardRepository.save(board);
 
         // 수정 후 어떤 아이템인지 아이템의 아이디를 알려줌
         return board.getId();

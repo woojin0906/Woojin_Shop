@@ -76,7 +76,7 @@ public class BoardController {
         return "board/boardList";
     }
 
-    // 게시글 수정
+    // 게시글 조회
     @GetMapping("/boards/{boardId}")
     public String boardDetail(@PathVariable("boardId")Long boardId, Model model, Principal principal) {
         String email = principal.getName();
@@ -95,26 +95,47 @@ public class BoardController {
 
     }
 
+    // 게시글 수정 시 조회
+    @GetMapping("/boards/edit/{boardId}")
+    public String boardUpdate(@PathVariable("boardId")Long boardId, Model model, Principal principal) {
+        String email = principal.getName();
+        model.addAttribute("memberId", email);
+
+        try {
+            BoardFormDto boardFormDto = boardService.getBoardDetail(boardId);
+            model.addAttribute("boardFormDto", boardFormDto); // boardPost.html에서 boardFormDto로 받기 때문에
+        } catch (EntityNotFoundException E) {
+            model.addAttribute("errorMessage", "존재하지 않는 게시글입니다.");
+            model.addAttribute("boardFormDto", new BoardFormDto());
+            return "board/boardUpdate";
+        }
+
+        return "board/boardUpdate";
+
+    }
+
     // 게시글 수정 후 할 일
-    @PostMapping("/boards/{boardId}")
-    public String boardUpdate(@Valid BoardFormDto boardFormDto, BindingResult bindingResult, Model model) {
+    @PutMapping("/boards/{boardId}")
+    public String boardEditUpdate(@Valid BoardFormDto boardFormDto, BindingResult bindingResult, Model model, Principal principal) {
+        String email = principal.getName();
+        model.addAttribute("memberId", email);
 
         if(bindingResult.hasErrors()) {
-            return "board/boardPost";
+            return "board/boardUpdate";
         }
 
         try {
             boardService.updateBoard(boardFormDto);
+            model.addAttribute("boardFormDto", boardFormDto); // boardPost.html에서 boardFormDto로 받기 때문에
         } catch (IOException e) {
             model.addAttribute("errorMessage", "게시글 수정 중에 오류가 발생했습니다.");
-            return "board/boardPost";
+            return "board/boardUpdate";
         }
 
-        // 홈으로 리턴
-        return "redirect:/board";
+        return "board/boardPost";
     }
 
-    // 게시판 삭제
+    // 게시글 삭제
     @DeleteMapping("/boards/{boardId}")
     public @ResponseBody ResponseEntity deleteBoard(@PathVariable Long boardId) {
 
