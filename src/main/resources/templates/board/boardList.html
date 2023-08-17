@@ -45,80 +45,279 @@
             input#searchQuery {
                   width: 30%;
             }
-            .form-inline.justify-content-center {
-                  text-align: center;
-            }
             searchDateType, #searchSellStatus, #searchBy {
                   -webkit-appearance: auto;
                   padding: 0.5rem 0.7rem;
+            }
+
+            section.notice {
+                  padding: 80px 0;
+            }
+
+            .page-title {
+                  margin-bottom: 60px;
+            }
+            .page-title h3 {
+                  font-size: 28px;
+                  color: #333333;
+                  font-weight: bold;
+                  text-align: center;
+            }
+            #board-search .search-window {
+                  padding: 15px 0;
+                  background-color: #f9f7f9;
+            }
+            #board-search .search-window .search-wrap {
+                  position: relative;
+                  width: 80%;
+                  margin-left: 250px;
+            }
+            #board-search .search-window .search-wrap input {
+                  height: 40px;
+                  width: 550px;
+                  font-size: 14px;
+                  padding: 7px 14px;
+                  border: 1px solid #ccc;
+            }
+            #board-search .search-window .search-wrap input:focus {
+                  border-color: #333;
+                  outline: 0;
+                  border-width: 1px;
+            }
+            #board-search .search-window .search-wrap .btn {
+                  position: absolute;
+                  right: 0;
+                  top: 0;
+                  bottom: 0;
+                  margin-right: 180px;
+                  width: 108px;
+                  padding: 0;
+                  font-size: 16px;
+                  background: #183867;
+            }
+            .board-table {
+                  font-size: 13px;
+                  width: 100%;
+                  border-top: 1px solid #ccc;
+                  border-bottom: 1px solid #ccc;
+            }
+
+            .board-table a {
+                  color: #333;
+                  display: inline-block;
+                  line-height: 1.4;
+                  word-break: break-all;
+                  vertical-align: middle;
+            }
+            .board-table a:hover {
+                  text-decoration: underline;
+            }
+            .board-table th {
+                  text-align: center;
+            }
+
+            .board-table .board-num {
+                  width: 100px;
+                  text-align: center;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .board-table .board-title {
+                  width: 200px;
+                  text-align: center;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            .board-table .board-writer {
+                width: 200px;
+                text-align: center;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            .board-table .board-date {
+                  width: 200px;
+                  text-align: center;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            .board-table th, .board-table td {
+                  padding: 14px 0;
+            }
+
+            .board-table tbody td {
+                  border-top: 1px solid #e7e7e7;
+                  text-align: center;
+                  font-size: 15px;
+            }
+
+            .board-table tbody th {
+                  padding-left: 28px;
+                  padding-right: 14px;
+                  border-top: 1px solid #e7e7e7;
+                  text-align: left;
+            }
+
+            .board-table tbody th p{
+                  display: none;
+            }
+
+            .btn-dark:hover, .btn-dark:focus {
+                  background: #373737;
+                  border-color: #373737;
+                  color: #fff;
+            }
+
+            .btn-dark {
+                  background: #000000;
+                  color: #fff;
+            }
+
+            .btn-dark:hover, .btn-dark:focus {
+                  background: #373737;
+                  border-color: #373737;
+                  color: #fff;
+            }
+
+            /* reset */
+
+            * {
+                  list-style: none;
+                  text-decoration: none;
+                  padding: 0;
+                  margin: 0;
+                  box-sizing: border-box;
+            }
+            .clearfix:after {
+                  content: '';
+                  display: block;
+                  clear: both;
+            }
+            .container {
+                  width: 1100px;
+                  margin: 0 auto;
+            }
+            .blind {
+                  position: absolute;
+                  overflow: hidden;
+                  clip: rect(0 0 0 0);
+                  margin: -1px;
+                  width: 1px;
+                  height: 1px;
+            }
+            .btn_write {
+                  position: absolute;
+                  margin-right: 60px;
+                  top: 0;
+                  bottom: 0;
+                  right: 0;
+                  width: 100px;
+                  background: #ffffff;
+                  color: black;
+                  border-radius: 5px;
+                  border-color: #ffffff;
+            }
+            .search-wrap-select {
+                  position: absolute;
+                  margin-left: 30px;
+            }
+            .page_class {
+                margin-top: 50px;
             }
       </style>
 </th:block>
 
 <body>
 <div layout:fragment="content">
-      <button id="writeBtn" onclick="location.href='/board/new'" class="btn btn-primary">작성하기</button>
-      <form th:action="@{'/board/' + ${items.number}}" role="form" method="get" th:object="${items}">
-            <table class="table">
-                  <thead>
-                  <tr>
-                        <td>게시판 번호</td>
-                        <td>제목</td>
-                        <td>작성자</td>
-                        <td>등록일</td>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr th:each="board, status: ${items.getContent()}">
-                        <td th:text="${board.id}"></td>
-                        <td>
-                              <a th:href="'/boards/'+${board.id}" th:text="${board.title}"></a>
-                        </td>
-                        <td th:text="${board.createdBy}"></td>
-                        <td th:text="${#temporals.format(board.regTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                  </tr>
-                  </tbody>
-            </table>
+      <div class="page-title">
+            <div class="container">
+                  <h3>게시판</h3>
+            </div>
+      </div>
+      <!-- board seach area -->
+      <div id="board-search">
+            <div class="container">
+                  <div class="search-window">
+                        <div class="form-inline justify-content-center" th:object="${boardSearchDto}">
 
-            <!-- 부트 스트랩 사용할 때 재사용 가능 -->
-            <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
-                  <ul class="pagination justify-content-center">
+<!--                              <input th:field="*{searchQuery}" type="text" class="form-control" placeholder="검색어를 입력해주세요">-->
+<!--                              <button id="searchBtn" type="submit" class="btn btn-primary">검색</button>-->
+                              <div class="search-wrap-select">
+                                    <select th:field="*{searchDateType}" class="form-control" style="width:auto;">
+                                          <option value="all">전체기간</option>
+                                          <option value="1d">1일</option>
+                                          <option value="1w">1주</option>
+                                          <option value="1m">1개월</option>
+                                          <option value="6m">6개월</option>
+                                    </select>
+                                    <select th:field="*{searchBy}" class="form-control" style="width:auto;">
+                                          <option value="title">제목</option>
+                                          <option value="createdBy">작성자</option>
+                                    </select>
+                              </div>
+                              <div class="search-wrap">
+                                    <div class="input_search_div">
+                                     <input th:field="*{searchQuery}" type="text" placeholder="검색어를 입력해주세요">
+                                    </div>
+                                    <div class="button_search_div">
+                                          <button id="searchBtn" type="submit"  class="btn btn-dark">검색</button>
+                                    </div>
+                                    <div class="button_wirtesearch_div">
+                                        <button id="writeBt" onclick="location.href='/board/new'" class="btn_write">작성하기</button>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <div id="board-list">
+            <div class="container">
+                  <form th:action="@{'/board/' + ${items.number}}" role="form" method="get" th:object="${items}">
+                        <table class="board-table">
+                              <thead>
+                              <tr>
+                                    <td scope="col" class="board-num">게시판 번호</td>
+                                    <td scope="col" class="board-title">제목</td>
+                                    <td scope="col" class="board-writer">작성자</td>
+                                    <td scope="col" class="board-date">등록일</td>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr th:each="board, status: ${items.getContent()}">
+                                    <td th:text="${board.id}"></td>
+                                    <td>
+                                          <a th:href="'/boards/'+${board.id}" th:text="${board.title}"></a>
+                                    </td>
+                                    <td th:text="${board.createdBy}"></td>
+                                    <td th:text="${#temporals.format(board.regTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                              </tr>
+                              </tbody>
+                        </table>
+                  </form>
+                <!-- 부트 스트랩 사용할 때 재사용 가능 -->
+                <div class="page_class" th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
+                    <ul class="pagination justify-content-center">
 
                         <li class="page-item" th:classappend="${items.first}?'disabled'">
-                              <a th:onclick="'javascript:page(' + ${items.number - 1} + ')'" aria-label='Previous' class="page-link">
-                                    <span aria-hidden='true'>Previous</span>
-                              </a>
+                            <a th:onclick="'javascript:page(' + ${items.number - 1} + ')'" aria-label='Previous' class="page-link">
+                                <span aria-hidden='true'>Previous</span>
+                            </a>
                         </li>
 
                         <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
-                              <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
+                            <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
                         </li>
 
                         <li class="page-item" th:classappend="${items.last}?'disabled'">
-                              <a th:onclick="'javascript:page(' + ${items.number + 1} + ')'" aria-label='Next' class="page-link">
-                                    <span aria-hidden='true'>Next</span>
-                              </a>
+                            <a th:onclick="'javascript:page(' + ${items.number + 1} + ')'" aria-label='Next' class="page-link">
+                                <span aria-hidden='true'>Next</span>
+                            </a>
                         </li>
-                  </ul>
-            </div>
-
-            <div class="form-inline justify-content-center" th:object="${boardSearchDto}">
-                  <select th:field="*{searchDateType}" class="form-control" style="width:auto;">
-                        <option value="all">전체기간</option>
-                        <option value="1d">1일</option>
-                        <option value="1w">1주</option>
-                        <option value="1m">1개월</option>
-                        <option value="6m">6개월</option>
-                  </select>
-                  <select th:field="*{searchBy}" class="form-control" style="width:auto;">
-                        <option value="title">제목</option>
-                        <option value="createdBy">작성자</option>
-                  </select>
-                  <input th:field="*{searchQuery}" type="text" class="form-control" placeholder="검색어를 입력해주세요">
-                  <button id="searchBtn" type="submit" class="btn btn-primary">검색</button>
-            </div>
-
-      </form>
+                    </ul>
+                </div>
+      </div>
+      </div>
 </div>
 </body>
 </html>

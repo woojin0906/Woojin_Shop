@@ -28,13 +28,57 @@
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
   <style>
-    .input-group {
-      margin-bottom: 15px
-    }
-
     .fieldError {
       color: #bd2130;
     }
+
+    /* main */
+    main{
+      margin-top: 100px;
+    }
+
+    table {
+      border-top: 3px solid #000000;
+      border-collapse: collapse;
+      margin: auto;
+    }
+    th, td {
+      padding: 7px;
+    }
+    th {
+      text-align: left;
+      padding-left: 15px;
+      padding-right: 15px;
+      font-size: 17px;
+    }
+    #_title, #_context {
+      border: 1px solid #cacaca;
+      padding: 7px; margin: 1px;
+      font-size: 15px;
+      width: 700px;
+      border-radius: 10px;
+    }
+
+    #_context { border: 1px solid #d8d6d6; }
+    #btn {
+      margin: auto;
+      display: block;
+      padding: 12px 40px 12px 40px;
+      font-size: 16px;
+      background-color: #000000;
+      color: white;
+      border: 1px solid #000000;
+      border-radius: 5px;
+    }
+    p.h2 {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    form {
+      padding-top: 100px;
+    }
+
   </style>
 </th:block>
 
@@ -42,12 +86,37 @@
   <div layout:fragment="content">
 
     <form role="form" method="post" enctype="multipart/form-data" th:object="${boardFormDto}">
-
       <p class="h2">게시글 등록</p>
-
       <input type="hidden" th:field="*{id}">
 
-      <div class="input-group">
+      <table>
+        <tr>
+          <th>제목</th>
+          <td><input th:field="*{title}" id="_title" type="text" name="_title" size="120" maxlength="100" placeholder="제목을 입력해주세요"/></td>
+          <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+             class="fieldError">Incorrect data</p>
+        </tr>
+        <tr>
+          <th>작성자</th>
+          <td><span th:text="${memberId}" type="text" name="_nickname"></span></td> <!-- 여기에는 단체명을 받아올 예정 -->
+        </tr>
+        <tr>
+          <th>등록일</th>
+          <td><input type="hidden" name="_date" size="120" maxlength="100" value="" placeholder="등록일"/></td> <!-- 현재 날짜 받아올 예정 -->
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td><textarea th:field="*{content}" id="_context" name="_context" cols="122" rows="10"></textarea></td>
+          <p th:if="${#fields.hasErrors('content')}"
+             th:errors="*{content}" class="fieldError">Incorrect data</p>
+        </tr>
+        <tr>
+
+          <td colspan="2"><button th:if="${#strings.isEmpty(boardFormDto.id)}" th:formaction="@{'/board/new'}" type="submit" id="btn">저장</button></td>
+        </tr>
+      </table>
+
+    <!--  <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text">제목</span>
         </div>
@@ -62,7 +131,7 @@
           <span class="input-group-text">작성자</span>
         </div>
         <span class="input-group-text" th:text="${memberId}">작성자</span>
-<!--        <input type="text" th:field="*{writer}" class="form-control">-->
+       <input type="text" th:field="*{writer}" class="form-control">
 
       <div class="input-group">
         <div class="input-group-prepend">
@@ -74,12 +143,12 @@
       <p th:if="${#fields.hasErrors('content')}"
          th:errors="*{content}" class="fieldError">Incorrect data</p>
 
-      <!--상품아이디가 없는 경우 저장 로직을 호출하는 버튼 보여줌. 원래 form 태그에서 지정해줘야하지만 아이디를 체크해서 없는 경우 fromaction을 이용하여 new로 준다-->
+      상품아이디가 없는 경우 저장 로직을 호출하는 버튼 보여줌. 원래 form 태그에서 지정해줘야하지만 아이디를 체크해서 없는 경우 fromaction을 이용하여 new로 준다
       <div th:if="${#strings.isEmpty(boardFormDto.id)}"
            style="text-align: center">
         <button th:formaction="@{'/board/new'}" type="submit"
                 class="btn btn-primary">저장</button>
-      </div>
+      </div>-->
 
       <!--  csrf 체크해서 이동 -->
       <input type="hidden" th:name="${_csrf.parameterName}"
