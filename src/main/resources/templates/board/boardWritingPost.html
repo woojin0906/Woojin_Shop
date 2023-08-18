@@ -101,10 +101,6 @@
           <td><span th:text="${memberId}" type="text" name="_nickname"></span></td> <!-- 여기에는 단체명을 받아올 예정 -->
         </tr>
         <tr>
-          <th>등록일</th>
-          <td><input type="hidden" name="_date" size="120" maxlength="100" value="" placeholder="등록일"/></td> <!-- 현재 날짜 받아올 예정 -->
-        </tr>
-        <tr>
           <th>내용</th>
           <td><textarea th:field="*{content}" id="_context" name="_context" cols="122" rows="10"></textarea></td>
           <p th:if="${#fields.hasErrors('content')}"

@@ -64,12 +64,61 @@
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
   <style>
-    .input-group {
-      margin-bottom: 15px
-    }
-
     .fieldError {
       color: #bd2130;
+    }
+
+    /* main */
+    main{
+      margin-top: 100px;
+    }
+    table {
+      border-top: 3px solid #000000;
+      border-collapse: collapse;
+      margin: auto;
+    }
+    th, td {
+      padding: 7px;
+    }
+    th {
+      text-align: left;
+      padding-left: 15px;
+      padding-right: 15px;
+      font-size: 17px;
+    }
+    span {
+      font-size: 16px;
+    }
+    #_context {
+      width: 700px;
+      border-radius: 10px;
+    }
+    .btn {
+      display: block;
+      padding: 12px 40px 12px 40px;
+      font-size: 16px;
+      background-color: #000000;
+      color: white;
+      border: 1px solid #000000;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
+    .btn:hover {
+      background-color: #d8d6d6;
+    }
+    p.h2 {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 20px;
+      margin-top: 150px;
+    }
+    #btn_div {
+      display: flex;
+      justify-content: center;
+    }
+    .title {
+      padding-top: 15px;
+      padding-bottom: 15px;
     }
   </style>
 </th:block>
@@ -78,44 +127,41 @@
 <div layout:fragment="content">
   <form role="form" method="get" enctype="multipart/form-data" th:action="@{/boards/edit/{id}(id=${boardFormDto.id})}" th:object="${boardFormDto}">
     <div>
-
       <p class="h2">게시글</p>
-
       <input type="hidden" th:field="*{id}">
 
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">제목</span>
-        </div>
-        <span class="input-group-text" th:text="*{title}">제목</span>
-      </div>
-      <p th:if="${#fields.hasErrors('title')}"  th:errors="*{title}"
-         class="fieldError">Incorrect data</p>
+      <table>
+        <tr>
+          <th class="title">제목</th>
+          <td><span class="title" name="_title" th:text="*{title}">제목</span></td>
+            <p th:if="${#fields.hasErrors('title')}"  th:errors="*{title}" class="fieldError">Incorrect data</p>
+        </tr>
+        <tr>
+          <th>작성자</th>
+          <td><span name="_nickname" th:text="*{writer}">작성자</span></td>
+        </tr>
+        <tr>
+          <th>등록일</th>
+          <td><span name="_date" th:text="*{#temporals.format(regTime, 'yyyy-MM-dd HH:mm:ss')}"></span></td>
+        </tr>
+        <tr>
+          <th>게시글 내용</th>
+          <td><textarea readonly id="_context" name="_context" th:text="*{content}" cols="122" rows="10"></textarea></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div id="btn_div" th:if="${memberId} eq *{writer}">
+              <button type="submit" class="btn">수정</button>
 
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">작성자</span>
-        </div>
-        <span class="input-group-text" th:text="*{writer}">작성자</span>
+              <!-- 삭제 -->
+              <button type="button" class="btn" th:data-id="${boardFormDto.id}" onclick="deleteBoard(this)">삭제</button>
+            </div>
+          </td>
+          <p th:if="${#fields.hasErrors('content')}"
+             th:errors="*{content}" class="fieldError">Incorrect data</p>
+        </tr>
+      </table>
 
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">게시글 내용</span>
-          </div>
-<!--          <textarea class="form-control" aria-label="With textarea"-->
-<!--                    th:field="*{content}"></textarea>-->
-          <span class="input-group-text" th:text="*{content}">게시글 내용</span>
-        </div>
-        <div th:if="${memberId} eq *{writer}">
-          <button type="submit" class="btn btn-primary">수정</button>
-
-          <!-- 삭제 -->
-          <button type="button" class="btn btn-primary" th:data-id="${boardFormDto.id}" onclick="deleteBoard(this)">삭제</button>
-        </div>
-        <p th:if="${#fields.hasErrors('content')}"
-           th:errors="*{content}" class="fieldError">Incorrect data</p>
-
-      </div>
     </div>
       <!--  csrf 체크해서 이동 -->
       <input type="hidden" th:name="${_csrf.parameterName}"

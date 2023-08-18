@@ -64,12 +64,53 @@
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
   <style>
-    .input-group {
-      margin-bottom: 15px
-    }
-
     .fieldError {
       color: #bd2130;
+    }
+
+    /* main */
+    main{
+      margin-top: 100px;
+    }
+    table {
+      border-top: 3px solid #000000;
+      border-collapse: collapse;
+      margin: auto;
+    }
+    th, td {
+      padding: 7px;
+    }
+    th {
+      text-align: left;
+      padding-left: 15px;
+      padding-right: 15px;
+      font-size: 17px;
+    }
+    #_title {
+      border: 1px solid #cacaca;
+      padding: 7px; margin: 1px;
+      font-size: 16px;
+    }
+    #_title, #_context {
+      width: 700px;
+      border-radius: 10px;
+    }
+    #_context { border: 1px solid #d8d6d6; }
+    #btn {
+      margin: auto;
+      display: block;
+      padding: 12px 40px 12px 40px;
+      font-size: 16px;
+      background-color: #000000;
+      color: white;
+      border: 1px solid #000000;
+      border-radius: 5px;
+    }
+    p.h2 {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 20px;
+      margin-top: 150px;
     }
   </style>
 </th:block>
@@ -81,37 +122,33 @@
     <input type="hidden" name="_method" value="PUT">
     <div>
       <p class="h2">게시글 수정</p>
-
       <input type="hidden" th:field="*{id}">
 
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">제목</span>
-        </div>
-        <input type="text" th:field="*{title}" class="form-control"
-               placeholder="제목을 입력해주세요">
-      </div>
-      <p th:if="${#fields.hasErrors('title')}"  th:errors="*{title}"
-         class="fieldError">Incorrect data</p>
+      <table>
+        <tr>
+          <th>제목</th>
+          <td><input id="_title" type="text" name="_title" th:field="*{title}" size="120" maxlength="100" placeholder="제목을 입력해주세요"/></td>
+          <p th:if="${#fields.hasErrors('title')}"  th:errors="*{title}" class="fieldError">Incorrect data</p>
+        </tr>
+        <tr>
+          <th>작성자</th>
+          <td><input type="hidden" name="_nickname"th:text="*{writer}"></td>
+        </tr>
+        <tr>
+          <th>등록일</th>
+          <td><input type="hidden" name="_date" size="120" maxlength="100" th:text="*{#temporals.format(regTime, 'yyyy-MM-dd HH:mm:ss')}" placeholder="등록일"/></td>
+        </tr>
+        <tr>
+          <th>게시글 내용</th>
+          <td><textarea id="_context" name="_context" cols="122" rows="10" th:field="*{content}"></textarea></td>
+          <p th:if="${#fields.hasErrors('content')}"
+             th:errors="*{content}" class="fieldError">Incorrect data</p>
+        </tr>
+        <tr>
+          <td colspan="2"><button type="submit" id="btn">수정 완료</button></td>
+        </tr>
+      </table>
 
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">작성자</span>
-        </div>
-        <span class="input-group-text" th:text="*{writer}">작성자</span>
-        <input type="hidden" th:field="*{writer}">
-
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">게시글 내용</span>
-          </div>
-          <textarea class="form-control" aria-label="With textarea"
-                    th:field="*{content}"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">수정</button>
-        <p th:if="${#fields.hasErrors('content')}"
-           th:errors="*{content}" class="fieldError">Incorrect data</p>
-      </div>
     </div>
   </form>
 </div>

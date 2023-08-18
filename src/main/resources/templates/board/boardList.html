@@ -55,7 +55,8 @@
             }
 
             .page-title {
-                  margin-bottom: 60px;
+                  margin-top: 60px;
+                  margin-bottom: 30px;
             }
             .page-title h3 {
                   font-size: 28px;
@@ -239,9 +240,6 @@
             <div class="container">
                   <div class="search-window">
                         <div class="form-inline justify-content-center" th:object="${boardSearchDto}">
-
-<!--                              <input th:field="*{searchQuery}" type="text" class="form-control" placeholder="검색어를 입력해주세요">-->
-<!--                              <button id="searchBtn" type="submit" class="btn btn-primary">검색</button>-->
                               <div class="search-wrap-select">
                                     <select th:field="*{searchDateType}" class="form-control" style="width:auto;">
                                           <option value="all">전체기간</option>

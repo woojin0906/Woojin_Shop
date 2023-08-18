@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDateTime;
+
 @Getter // 반드시 붙여야 함
 @Setter // 필수는 아님
 public class BoardFormDto {
@@ -19,6 +21,8 @@ public class BoardFormDto {
 
     @NotBlank(message = "게시글 내용은 필수 항목입니다.")
     private String content;  // 게시글 내용
+
+    private LocalDateTime regTime; // 작성 시간
 
     private static ModelMapper modelMapper = new ModelMapper(); // 엔티티와 매핑
 
